@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const bookmarkSchema = mongoose.Schema(
+const bookmarkSchema = new mongoose.Schema(
     {
         book_id : {
             type : mongoose.Schema.Types.ObjectId,

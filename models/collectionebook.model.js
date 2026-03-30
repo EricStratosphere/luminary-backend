@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const collectionEBookSchema = mongoose.Schema(
+const collectionEBookSchema = new mongoose.Schema(
     {
         collection_id : {
             type : mongoose.Schema.Types.ObjectId,

@@ -23,3 +23,7 @@ const NoteSchema = new mongoose.Schema({
         required : true,
     }
 })
+
+const Notes = mongoose.model('Notes', NoteSchema);
+
+export default Notes;
