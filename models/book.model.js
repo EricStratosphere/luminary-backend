@@ -28,10 +28,9 @@ const bookSchema = new mongoose.Schema(
         },
         genre : [
             {
-                type : mongoose.Schema.Types.ObjectId,
-                ref : 'Genre',
-                required : true,
-                index : true,
+                type : String,
+                enum : ['Fiction', 'Non-Fiction', 'Science Fiction', 'Fantasy', 'Mystery', 'Biography', 'History', 'Romance', 'Horror'],
+                required : true
             }
         ],
         description : {
