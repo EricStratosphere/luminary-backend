@@ -32,3 +32,12 @@ const userSchema = mongoose.Schema(
 )
 const User = mongoose.model('User', userSchema);
 export default User;
+
+/*
+Something to consider in the future is when you make a schema or a caching system for the continue_reading feature.
+
+The attributes should contain as follows:
+
+book_id : {type : mongoose.Schema.Types.ObjectId, ref : 'Book'}
+page : Number
+*/
