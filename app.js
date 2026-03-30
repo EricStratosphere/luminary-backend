@@ -1,7 +1,13 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
+import connectToDatabase from './database/mongodb.js';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors({
+    origin : true
+}));
 
 app.disable('x-powered-by');
 
@@ -15,7 +21,8 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3000, async () => {
-    console.log("luminary backend active!");
+    await connectToDatabase();
+    console.log("luminary backend active! at http://localhost:3000");
 });
 
 export default app;
