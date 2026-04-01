@@ -6,8 +6,12 @@ const authorSchema = new mongoose.Schema(
             type : String,
             required : true,
             trim : true,
+            unique : true,
             minLength : 2,
             maxLength : 100,
+        },
+        author_img_url:{
+            type : String,
         },
         author_description : {
             type : String,
