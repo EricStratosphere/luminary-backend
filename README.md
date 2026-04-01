@@ -29,7 +29,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       {
         "_id": "authorObjectId",
         "name": "Author Name",
-        "author_img_url" : "https://someauthorimglink.com"
+        "author_img_url" : "https://someauthorimglink.com",
         "author_description": "Short bio or description",
         "createdAt": "2026-03-30T12:00:00.000Z",
         "updatedAt": "2026-03-30T12:00:00.000Z"
@@ -48,7 +48,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "authorObjectId",
       "name": "Author Name",
-      "author_img_url" : "https://someauthorimglink.com"
+      "author_img_url" : "https://someauthorimglink.com",
       "author_description": "Short bio or description",
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
@@ -234,7 +234,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       {
         "_id": "bookmarkObjectId",
         "book_id": "bookObjectId",
-        "user_id": "userObjectId"
+        "user_id": "userObjectId",
+        "page": 123
       }
     ],
     "message": "Fetched all bookmarks!"
@@ -250,7 +251,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Fetched bookmark by id!"
   }
@@ -262,7 +264,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   ```json
   {
     "user_id": "userObjectId",
-    "book_id": "bookObjectId"
+    "book_id": "bookObjectId",
+    "page": 123
   }
   ```
 - Response:
@@ -272,7 +275,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Created new bookmark!"
   }
@@ -288,7 +292,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Updated bookmark!"
   }
