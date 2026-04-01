@@ -29,6 +29,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       {
         "_id": "authorObjectId",
         "name": "Author Name",
+        "author_img_url" : "https://someauthorimglink.com"
         "author_description": "Short bio or description",
         "createdAt": "2026-03-30T12:00:00.000Z",
         "updatedAt": "2026-03-30T12:00:00.000Z"
@@ -47,6 +48,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "authorObjectId",
       "name": "Author Name",
+      "author_img_url" : "https://someauthorimglink.com"
       "author_description": "Short bio or description",
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
@@ -72,6 +74,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "_id": "authorObjectId",
       "name": "string",
       "author_description": "string",
+      "author_img_url" : "https://someauthorimglink.com",
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
@@ -90,6 +93,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "_id": "authorObjectId",
       "name": "string",
       "author_description": "string",
+      "author_img_url" : "https://someauthorimglink.com",
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
