@@ -157,6 +157,27 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
+### GET /api/v1/books/getbyauthor/:id
+- Description: Retrieve all books by a given author ID.
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "bookObjectId",
+        "book_title": "Title",
+        "book_author_id": ["authorObjectId"],
+        "date_published": "2025-01-01T00:00:00.000Z",
+        "genre": ["Fiction"],
+        "description": "Book description",
+        "image_url": "https://example.com/image.jpg",
+        "pdf_url": "https://example.com/book.pdf"
+      }
+    ]
+  }
+  ```
+
 ### POST /api/v1/books
 - Description: Create a new book record for the library.
 - Body:

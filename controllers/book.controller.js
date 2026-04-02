@@ -24,7 +24,7 @@ export const getBookById = async (req, res) => {
                 message: "Book not found!"
             });
         }
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             data: book
         });
@@ -36,6 +36,35 @@ export const getBookById = async (req, res) => {
     }
 };
 
+export const getBooksByAuthorId = async(req, res) => {
+    try{
+        const books = await Book.find(
+            {
+                book_author_id : req.params.id
+            }
+        )
+        if(!books){
+            return res.status(404).json({
+                success: false,
+                message: "Book not found!"
+            });
+        }
+        return res.status(200).json(
+            {
+                success : true,
+                data : books,
+            }
+        )
+    }
+    catch(error){
+        res.status(500).json(
+            {
+                success : false,
+                message : error.message
+            }
+        )
+    }
+}
 export const postBook = async (req, res) => {
     try {
         const book = await Book.create({ ...req.body });
@@ -47,7 +76,7 @@ export const postBook = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Failed to create book!"
+            message: error.message
         });
     }
 };
