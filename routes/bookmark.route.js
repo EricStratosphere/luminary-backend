@@ -7,16 +7,16 @@ const bookmarkRouter = Router();
 bookmarkRouter.get('/book/:book_id/user/:user_id', getBookmarkByBookAndUserId);
 
 // GET bookmark by id
-bookmarkRouter.get('/:id', getBookmarkById);
+bookmarkRouter.get('/getbyid/:id', getBookmarkById);
 
 // POST create bookmark
 bookmarkRouter.post('/', postBookmark);
 
 // PUT update bookmark by id
-bookmarkRouter.put('/:id', updateBookmark);
+bookmarkRouter.put('/update/:id', updateBookmark);
 
 // DELETE bookmark by id
-bookmarkRouter.delete('/:id', deleteBookmark);
+bookmarkRouter.delete('/delete/:id', deleteBookmark);
 
 export default bookmarkRouter;
 

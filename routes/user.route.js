@@ -17,9 +17,9 @@ userRouter.get('/getbyname/:search_text', getUsersByName);
 userRouter.post('/', createUser);
 
 // PUT update user by id
-userRouter.put('/:id', updateUser);
+userRouter.put('/update/:id', updateUser);
 
 // DELETE user by id
-userRouter.delete('/:id', deleteUser);
+userRouter.delete('/delete/:id', deleteUser);
 
 export default userRouter;

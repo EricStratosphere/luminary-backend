@@ -13,9 +13,9 @@ authorRouter.get('/getbyname/:search_text', getAuthorByName);
 authorRouter.post('/', postAuthor);
 
 // PUT update author by id
-authorRouter.put('/:id', updateAuthor);
+authorRouter.put('/update/:id', updateAuthor);
 
 // DELETE author by id
-authorRouter.delete('/:id', deleteAuthor);
+authorRouter.delete('/delete/:id', deleteAuthor);
 
 export default authorRouter;

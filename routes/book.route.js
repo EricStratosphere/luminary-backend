@@ -7,7 +7,7 @@ const bookRouter = Router();
 bookRouter.get('/', getBooks);
 
 // GET book by id
-bookRouter.get('getbyid/:id', getBookById);
+bookRouter.get('/getbyid/:id', getBookById);
 
 // GET book by author
 bookRouter.get('/getbyauthor/:id', getBooksByAuthorId);
@@ -20,10 +20,10 @@ bookRouter.get('/getbyname/:search_text', getBooksByName);
 bookRouter.post('/', postBook);
 
 // PUT update book by id
-bookRouter.put('/:id', updateBook);
+bookRouter.put('/update/:id', updateBook);
 
 
 // DELETE book by id
-bookRouter.delete('/:id', deleteBook);
+bookRouter.delete('/delete/:id', deleteBook);
 
 export default bookRouter;

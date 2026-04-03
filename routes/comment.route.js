@@ -1,45 +1,21 @@
 import { Router } from "express";
+import { getComments, getCommentsByBookId, createComment, updateComment, deleteComment } from "../controllers/comment.controller.js";
 
 const commentRouter = Router();
 
 // GET all comments
-commentRouter.get('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched all comments!"
-    });
-});
+commentRouter.get('/', getComments);
 
-// GET comment by id
-commentRouter.get('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched comment by id!"
-    });
-});
+// GET comments by book id
+commentRouter.get('/book/:bookId', getCommentsByBookId);
 
 // POST create comment
-commentRouter.post('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Created new comment!"
-    });
-});
+commentRouter.post('/', createComment);
 
 // PUT update comment by id
-commentRouter.put('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Updated comment!"
-    });
-});
+commentRouter.put('/update/:id', updateComment);
 
 // DELETE comment by id
-commentRouter.delete('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Deleted comment!"
-    });
-});
+commentRouter.delete('/delete/:id', deleteComment);
 
 export default commentRouter;

@@ -16,9 +16,9 @@ collectionRouter.get('/getbyname/:search_text', getCollectionsByName);
 collectionRouter.post('/', postCollection);
 
 // PUT update collection by id
-collectionRouter.put('/:id', updateCollection);
+collectionRouter.put('/update/:id', updateCollection);
 
 // DELETE collection by id
-collectionRouter.delete('/:id', deleteCollection);
+collectionRouter.delete('/delete/:id', deleteCollection);
 
 export default collectionRouter;
