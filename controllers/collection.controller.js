@@ -46,7 +46,7 @@ export const getCollectionById = async (req, res) => {
 
 export const getCollectionsByName = async (req, res) => {
     try {
-        const searchText = req.params.search_text;
+        const searchText = req.query.q;
         if (!searchText || !searchText.trim()) {
             return res.status(400).json({
                 success: false,

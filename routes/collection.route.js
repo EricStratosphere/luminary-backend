@@ -10,7 +10,7 @@ collectionRouter.get('/user/:user_id', getCollectionsByUserId);
 collectionRouter.get('/getbyid/:id', getCollectionById);
 
 // GET collections by name
-collectionRouter.get('/getbyname/:search_text', getCollectionsByName);
+collectionRouter.get('/getbyname', getCollectionsByName);
 
 // POST create collection
 collectionRouter.post('/', postCollection);
