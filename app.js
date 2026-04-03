@@ -10,7 +10,7 @@ import collectionBookRouter from './routes/collectionbook.route.js';
 import commentRouter from './routes/comment.route.js';
 import notesRouter from './routes/notes.route.js';
 import userRouter from './routes/user.route.js';
-
+import { PORT } from './config/env.js';
 const app = express();
 
 app.use(cors({
@@ -35,9 +35,9 @@ app.get('/', (req, res) => {
     return res.send("luminary backend active!");
 });
 
-app.listen(3000, async () => {
+app.listen(PORT, async () => {
     await connectToDatabase();
-    console.log("luminary backend active! at http://localhost:3000");
+    console.log("luminary backend active! at http://localhost:" + PORT);
 });
 
 export default app;
