@@ -8,7 +8,7 @@ authorRouter.get('/', getAuthors);
 // GET author by id
 authorRouter.get('/getbyid/:id', getAuthorById);
 
-authorRouter.get('/getbyname/:search_text', getAuthorByName);
+authorRouter.get('/getbyname', getAuthorByName);
 // POST create author
 authorRouter.post('/', postAuthor);
 

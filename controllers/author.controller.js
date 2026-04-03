@@ -58,7 +58,13 @@ export const postAuthor = async(req, res) => {
 
 export const getAuthorByName = async(req, res) => {
     try{
-        const search = req.params.search_text;
+        const search = req.query.q;
+        if (!search || !search.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Search text is required"
+            });
+        }
         const searchRegex = new RegExp(search);
         var result = await Author.find({'name' : { "$regex" : searchRegex, "$options" : 'i'}});
         if(!result){
