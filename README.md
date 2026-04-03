@@ -389,7 +389,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/collections/:id
+### GET /api/v1/collections/getbyid/:id
 - Description: Retrieve a specific playlist by `id`.
 - Response:
   ```json
@@ -401,6 +401,23 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "user_id": "userObjectId"
     },
     "message": "Fetched collection by id!"
+  }
+  ```
+
+### GET /api/v1/collections/getbyname/:search_text
+- Description: Search collections by partial name (case-insensitive).
+- Example URL: `/api/v1/collections/getbyname/favorites`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "collectionObjectId",
+        "name": "Favorites",
+        "user_id": "userObjectId"
+      }
+    ]
   }
   ```
 
