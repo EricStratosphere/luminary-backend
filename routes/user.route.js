@@ -7,7 +7,7 @@ const userRouter = Router();
 userRouter.get('/', getUsers);
 
 // GET user by id
-userRouter.get('/:id', getUser);
+userRouter.get('/getbyid/:id', getUser);
 
 
 // GET users by name
