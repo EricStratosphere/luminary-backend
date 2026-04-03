@@ -86,7 +86,16 @@ export const updateUser = async (req, res) => {
 
 export const getUsersByName = async(req, res) => {
     try{
-        var result = await User.find({'username' : { "$regex" : req.params.search_text, "$options" : 'i'}}, '-password -is_admin');
+        const name = req.query.q;
+        if(!name || !name.trim()){
+            return res.status(404).json(
+                {
+                    success : false,
+                    message : 'Name not found!'
+                }
+            )
+        }
+        var result = await User.find({'username' : { "$regex" : name, "$options" : 'i'}}, '-password -is_admin');
         if(!result){
             const error = new Error("Failed to fetch users by name!");
             throw error;

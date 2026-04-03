@@ -11,7 +11,7 @@ userRouter.get('/getbyid/:id', getUser);
 
 
 // GET users by name
-userRouter.get('/getbyname/:search_text', getUsersByName);
+userRouter.get('/getbyname', getUsersByName);
 
 // POST create user
 userRouter.post('/', createUser);
