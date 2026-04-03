@@ -39,7 +39,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/authors/:id
+### GET /api/v1/authors/getbyid/:id
 - Description: Retrieve a specific author by `id`.
 - Response:
   ```json
@@ -54,6 +54,26 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
     "message": "Fetched author by id!"
+  }
+  ```
+
+### GET /api/v1/authors/search?name=<value>
+- Description: Search for authors by partial name (case-insensitive), maps to `/api/v1/authors/getbyname/:search_text`.
+- Example URL: `/api/v1/authors/getbyname/John`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "authorObjectId",
+        "name": "John Doe",
+        "author_img_url" : "https://someauthorimglink.com",
+        "author_description": "Short bio or description",
+        "createdAt": "2026-03-30T12:00:00.000Z",
+        "updatedAt": "2026-03-30T12:00:00.000Z"
+      }
+    ]
   }
   ```
 
@@ -137,7 +157,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/books/:id
+### GET /api/v1/books/getbyid/:id
 - Description: Retrieve a specific book by `id`.
 - Response:
   ```json
@@ -167,6 +187,28 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       {
         "_id": "bookObjectId",
         "book_title": "Title",
+        "book_author_id": ["authorObjectId"],
+        "date_published": "2025-01-01T00:00:00.000Z",
+        "genre": ["Fiction"],
+        "description": "Book description",
+        "image_url": "https://example.com/image.jpg",
+        "pdf_url": "https://example.com/book.pdf"
+      }
+    ]
+  }
+  ```
+
+### GET /api/v1/books/search?title=<value>
+- Description: Search for books by partial title (case-insensitive), maps to `/api/v1/books/getbyname/:search_text`.
+- Example URL: `/api/v1/books/getbyname/History`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "bookObjectId",
+        "book_title": "History of Everything",
         "book_author_id": ["authorObjectId"],
         "date_published": "2025-01-01T00:00:00.000Z",
         "genre": ["Fiction"],
@@ -245,21 +287,18 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
 
 ## Bookmarks
 
-### GET /api/v1/bookmarks
-- Description: List all bookmarks saved by users.
+### GET /api/v1/bookmarks/book/:book_id/user/:user_id
+- Description: Retrieve a bookmark for a specific book and user.
 - Response:
   ```json
   {
     "success": true,
-    "data": [
-      {
-        "_id": "bookmarkObjectId",
-        "book_id": "bookObjectId",
-        "user_id": "userObjectId",
-        "page": 123
-      }
-    ],
-    "message": "Fetched all bookmarks!"
+    "data": {
+      "_id": "bookmarkObjectId",
+      "book_id": "bookObjectId",
+      "user_id": "userObjectId",
+      "page": 123
+    }
   }
   ```
 
@@ -334,8 +373,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
 
 ## Collections
 
-### GET /api/v1/collections
-- Description: List all playlists (collections) created by users.
+### GET /api/v1/collections/user/:user_id
+- Description: Retrieve all collections for a specific user.
 - Response:
   ```json
   {
@@ -346,8 +385,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
         "name": "Collection Name",
         "user_id": "userObjectId"
       }
-    ],
-    "message": "Fetched all collections!"
+    ]
   }
   ```
 
@@ -731,7 +769,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/users/:id
+### GET /api/v1/users/getbyid/:id
 - Description: Retrieve a specific user by `id`.
 - Response:
   ```json
@@ -747,6 +785,27 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
     "message": "Fetched user by id!"
+  }
+  ```
+
+### GET /api/v1/users/search?username=<value>
+- Description: Search for users by partial username (case-insensitive), maps to `/api/v1/users/getbyname/:search_text`.
+- Example URL: `/api/v1/users/getbyname/alice`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "userObjectId",
+        "username": "alice",
+        "email": "alice@example.com",
+        "is_admin": false,
+        "is_writer": false,
+        "createdAt": "2026-03-30T12:00:00.000Z",
+        "updatedAt": "2026-03-30T12:00:00.000Z"
+      }
+    ]
   }
   ```
 
