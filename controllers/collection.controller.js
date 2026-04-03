@@ -44,6 +44,30 @@ export const getCollectionById = async (req, res) => {
     }
 };
 
+export const getCollectionsByName = async (req, res) => {
+    try {
+        const searchText = req.params.search_text;
+        if (!searchText || !searchText.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Search text is required"
+            });
+        }
+        const regex = new RegExp(searchText, "i");
+        const result = await Collection.find({ name: { $regex: regex } });
+
+        return res.status(200).json({
+            success: true,
+            data: result
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 export const postCollection = async (req, res) => {
     try {
         const collection = await Collection.create({ ...req.body });
