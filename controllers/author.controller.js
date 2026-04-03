@@ -35,6 +35,31 @@ export const postAuthor = async(req, res) => {
     }
 }
 
+export const getAuthorByName = async(req, res) => {
+    try{
+        const search = req.params.search_text;
+        const searchRegex = new RegExp(search);
+        var result = await Author.find({'name' : { "$regex" : searchRegex, "$options" : 'i'}});
+        if(!result){
+            const error = new Error("Failed to fetch Author by name!");
+            throw error;
+        }
+        return res.status(200).json(
+            {
+                success : true,
+                data : result,
+            }
+        )
+    }
+    catch(error){
+        return res.status(404).json(
+            {
+                success : false,
+                errorMsg : error.message
+            }
+        )
+    }
+}
 
 export const updateAuthor = async(req, res, next) => {
     try{
