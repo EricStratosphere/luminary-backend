@@ -57,9 +57,9 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/authors/search?name=<value>
-- Description: Search for authors by partial name (case-insensitive), maps to `/api/v1/authors/getbyname/:search_text`.
-- Example URL: `/api/v1/authors/getbyname/John`
+### GET /api/v1/authors/getbyname?q=<value>
+- Description: Search for authors by partial name (case-insensitive).
+- Example URL: `/api/v1/authors/getbyname?q=John`
 - Response:
   ```json
   {
@@ -198,9 +198,9 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/books/search?title=<value>
-- Description: Search for books by partial title (case-insensitive), maps to `/api/v1/books/getbyname/:search_text`.
-- Example URL: `/api/v1/books/getbyname/History`
+### GET /api/v1/books/getbyname?q=<value>
+- Description: Search for books by partial title (case-insensitive).
+- Example URL: `/api/v1/books/getbyname?q=History`
 - Response:
   ```json
   {
@@ -404,9 +404,9 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/collections/getbyname/:search_text
+### GET /api/v1/collections/getbyname?q=<value>
 - Description: Search collections by partial name (case-insensitive).
-- Example URL: `/api/v1/collections/getbyname/favorites`
+- Example URL: `/api/v1/collections/getbyname?q=favorites`
 - Response:
   ```json
   {
@@ -954,9 +954,9 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/users/search?username=<value>
-- Description: Search for users by partial username (case-insensitive), maps to `/api/v1/users/getbyname/:search_text`.
-- Example URL: `/api/v1/users/getbyname/alice`
+### GET /api/v1/users/getbyname?q=<value>
+- Description: Search for users by partial username (case-insensitive).
+- Example URL: `/api/v1/users/getbyname?q=alice`
 - Response:
   ```json
   {

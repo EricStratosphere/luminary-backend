@@ -1,9 +1,0 @@
-{
-  "book_title": "The Luminary Quest",
-  "book_author_id": ["643e1a2b3c4d5e6f7a8b9c01"],
-  "date_published": "2024-10-05T00:00:00.000Z",
-  "genre": ["Fantasy", "Mystery"],
-  "description": "A thrilling novel about courage, secrets, and the journey to become a luminary.",
-  "image_url": "https://example.com/books/luminary-quest.jpg",
-  "pdf_url": "https://example.com/books/luminary-quest.pdf"
-}

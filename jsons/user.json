@@ -1,7 +1,0 @@
-{
-  "username": "reader123",
-  "email": "reader123@example.com",
-  "password": "SecureP@ss1",
-  "is_admin": false,
-  "is_writer": true
-}
