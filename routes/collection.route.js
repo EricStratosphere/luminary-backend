@@ -1,22 +1,13 @@
 import { Router } from "express";
+import { getCollectionsByUserId, getCollectionById, postCollection, updateCollection, deleteCollection } from "../controllers/collection.controller.js";
 
 const collectionRouter = Router();
 
-// GET all collections
-collectionRouter.get('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched all collections!"
-    });
-});
+// GET collections by user id
+collectionRouter.get('/user/:user_id', getCollectionsByUserId);
 
 // GET collection by id
-collectionRouter.get('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched collection by id!"
-    });
-});
+collectionRouter.get('/:id', getCollectionById);
 
 // POST create collection
 collectionRouter.post('/', (req, res, next) => {

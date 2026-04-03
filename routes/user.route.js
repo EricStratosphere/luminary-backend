@@ -1,45 +1,25 @@
 import { Router } from "express";
+import { getUsers, getUser, getUsersByName, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
 
 const userRouter = Router();
 
 // GET all users
-userRouter.get('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched all users!"
-    });
-});
+userRouter.get('/', getUsers);
 
 // GET user by id
-userRouter.get('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched user by id!"
-    });
-});
+userRouter.get('/:id', getUser);
+
+
+// GET users by name
+userRouter.get('/getbyname/:search_text', getUsersByName);
 
 // POST create user
-userRouter.post('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Created new user!"
-    });
-});
+userRouter.post('/', createUser);
 
 // PUT update user by id
-userRouter.put('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Updated user!"
-    });
-});
+userRouter.put('/:id', updateUser);
 
 // DELETE user by id
-userRouter.delete('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Deleted user!"
-    });
-});
+userRouter.delete('/:id', deleteUser);
 
 export default userRouter;
