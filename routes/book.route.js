@@ -14,7 +14,7 @@ bookRouter.get('/getbyauthor/:id', getBooksByAuthorId);
 
 // GET books by name
 
-bookRouter.get('/getbyname/:search_text', getBooksByName);
+bookRouter.get('/getbyname', getBooksByName);
 
 // POST create book
 bookRouter.post('/', postBook);
