@@ -65,6 +65,33 @@ export const getBooksByAuthorId = async(req, res) => {
         )
     }
 }
+
+export const getBooksByName = async(req, res) => {
+    try{
+        const search = req.params.search_text;
+        const searchRegex = new RegExp(search);
+        var result = await Book.find({'book_title' : { "$regex" : searchRegex, "$options" : 'i'}});
+        if(!result){
+            const error = new Error("Failed to fetch books by title!");
+            throw error;
+        }
+        return res.status(200).json(
+            {
+                success : true,
+                data : result,
+            }
+        )
+    }
+    catch(error){
+        return res.status(404).json(
+            {
+                success : false,
+                errorMsg : error.message
+            }
+        )
+    }
+}
+
 export const postBook = async (req, res) => {
     try {
         const book = await Book.create({ ...req.body });
