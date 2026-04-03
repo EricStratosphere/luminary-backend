@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 
 export const getUsers = async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find({}, '-password -is_admin');
         res.status(200).json({
             success: true,
             data: users
@@ -86,7 +86,7 @@ export const updateUser = async (req, res) => {
 
 export const getUsersByName = async(req, res) => {
     try{
-        var result = await User.find({'username' : { "$regex" : req.params.search_text, "$options" : 'i'}});
+        var result = await User.find({'username' : { "$regex" : req.params.search_text, "$options" : 'i'}}, '-password -is_admin');
         if(!result){
             const error = new Error("Failed to fetch users by name!");
             throw error;
