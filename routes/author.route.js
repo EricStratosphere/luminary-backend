@@ -1,17 +1,12 @@
 import { Router } from "express";
-import { getAuthors, postAuthor, updateAuthor, deleteAuthor, getAuthorByName } from "../controllers/author.controller.js";
+import { getAuthors, getAuthorById, postAuthor, updateAuthor, deleteAuthor, getAuthorByName } from "../controllers/author.controller.js";
 const authorRouter = Router();
 
 // GET all authors
 authorRouter.get('/', getAuthors);
 
 // GET author by id
-authorRouter.get('/getbyid/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched author by id!"
-    });
-});
+authorRouter.get('/getbyid/:id', getAuthorById);
 
 authorRouter.get('/getbyname/:search_text', getAuthorByName);
 // POST create author
