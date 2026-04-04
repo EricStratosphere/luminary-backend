@@ -37,24 +37,9 @@ app.get('/', (req, res) => {
     return res.send("luminary backend active!");
 });
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-app.listen(PORT, async () => {
-    await connectToDatabase();
-    console.log("luminary backend active! at http://localhost:" + PORT);
-});
-=======
 connectToDatabase();
-=======
-await connectToDatabase();
->>>>>>> d50a61d57754605d89498e6e18393fd1fac56854
 console.log("luminary backend active! at http://localhost:" + PORT);
 // app.listen(PORT, async () => {
-//     // await connectToDatabase();
 // });
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> d50a61d57754605d89498e6e18393fd1fac56854
 
 export default app;
