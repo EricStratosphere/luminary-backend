@@ -21,7 +21,17 @@ const commentSchema = new mongoose.Schema(
         rating : {
             type : Number,
             enum : [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5],
-        }
+            require : false,
+        },
+        content : {
+            type : String,
+            require : true,
+        },
+        replying_to : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Comment',
+            require : false,
+        },
     }, {timestamps : true}
 )
 
