@@ -20,6 +20,7 @@ app.use(cors({
 
 app.disable('x-powered-by');
 
+connectToDatabase();
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 app.use('/api/v1/authors', authorRouter);
@@ -37,7 +38,6 @@ app.get('/', (req, res) => {
     return res.send("luminary backend active!");
 });
 
-connectToDatabase();
 console.log("luminary backend active! at http://localhost:" + PORT);
 // app.listen(PORT, async () => {
 // });
