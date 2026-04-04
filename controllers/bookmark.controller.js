@@ -3,7 +3,7 @@ import Bookmark from "../models/bookmark.model.js";
 export const getBookmarkByBookAndUserId = async (req, res) => {
     try {
         const { book_id, user_id } = req.params;
-        const bookmark = await Bookmark.findOne({
+        const bookmark = await Bookmark.find({
             book_id,
             user_id
         });
