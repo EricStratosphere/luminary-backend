@@ -18,6 +18,11 @@ const collectionSchema = new mongoose.Schema(
             type : mongoose.Schema.Types.ObjectId,
             ref : 'Collection',
             index : true
+        },
+        public : {
+            type : Boolean,    
+            required : true,        
+            default : true
         }
     }
 )

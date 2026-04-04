@@ -54,7 +54,7 @@ export const getCollectionsByName = async (req, res) => {
             });
         }
         const regex = new RegExp(searchText, "i");
-        const result = await Collection.find({ name: { $regex: regex } });
+        const result = await Collection.find({ name: { $regex: regex }, public : true });
 
         return res.status(200).json({
             success: true,
