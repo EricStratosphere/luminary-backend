@@ -13,6 +13,11 @@ const collectionSchema = new mongoose.Schema(
             ref : 'User',
             required : true,
             index : true,
+        },
+        copy_id : {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Collection',
+            index : true
         }
     }
 )
