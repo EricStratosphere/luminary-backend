@@ -14,7 +14,7 @@ export const getComments = async (req, res) => {
 
 export const getCommentsByBookId = async (req, res) => {
     try {
-        const comments = await Comment.find({ book_id: req.params.bookId }).populate('user_id');
+        const comments = await Comment.find({ book_id: req.params.bookId }).populate('user_id', '-password -is_admin -createdAt -updatedAt');
         if (!comments || comments.length === 0) {
             return res.status(404).json({
                 success: false,

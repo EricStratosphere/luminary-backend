@@ -293,12 +293,20 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   ```json
   {
     "success": true,
-    "data": {
+    "data": [
+      {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
       "user_id": "userObjectId",
       "page": 123
-    }
+      },
+      {
+      "_id": "bookmarkObjectId",
+      "book_id": "bookObjectId",
+      "user_id": "userObjectId",
+      "page": 4
+      }
+    ]
   }
   ```
 

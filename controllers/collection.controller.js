@@ -54,7 +54,7 @@ export const getCollectionsByName = async (req, res) => {
             });
         }
         const regex = new RegExp(searchText, "i");
-        const result = await Collection.find({ name: { $regex: regex } });
+        const result = await Collection.find({ name: { $regex: regex }, public : true });
 
         return res.status(200).json({
             success: true,
@@ -97,7 +97,7 @@ export const updateCollection = async (req, res) => {
         const updates = req.body;
         if (updates.name !== undefined) collection.name = updates.name;
         if (updates.user_id !== undefined) collection.user_id = updates.user_id;
-
+        if (updates.copy_id !== undefined) collection.copy_id = updates.copy_id; 
         await collection.save();
         res.status(200).json({
             success: true,

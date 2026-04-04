@@ -37,9 +37,10 @@ app.get('/', (req, res) => {
     return res.send("luminary backend active!");
 });
 
-app.listen(PORT, async () => {
-    await connectToDatabase();
-    console.log("luminary backend active! at http://localhost:" + PORT);
-});
+await connectToDatabase();
+console.log("luminary backend active! at http://localhost:" + PORT);
+// app.listen(PORT, async () => {
+//     // await connectToDatabase();
+// });
 
 export default app;
