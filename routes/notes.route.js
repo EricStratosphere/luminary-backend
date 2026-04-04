@@ -1,45 +1,24 @@
 import { Router } from "express";
+import { getNotes, getNoteById, getNotesByBookIdAndUserId, createNote, updateNote, deleteNote } from "../controllers/notes.controller.js";
 
 const notesRouter = Router();
 
 // GET all notes
-notesRouter.get('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched all notes!"
-    });
-});
+notesRouter.get('/', getNotes);
 
 // GET note by id
-notesRouter.get('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched note by id!"
-    });
-});
+notesRouter.get('/getbyid/:id', getNoteById);
+
+// GET notes by book id and user id
+notesRouter.get('/book/:bookId/user/:userId', getNotesByBookIdAndUserId);
 
 // POST create note
-notesRouter.post('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Created new note!"
-    });
-});
+notesRouter.post('/', createNote);
 
 // PUT update note by id
-notesRouter.put('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Updated note!"
-    });
-});
+notesRouter.put('/update/:id', updateNote);
 
 // DELETE note by id
-notesRouter.delete('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Deleted note!"
-    });
-});
+notesRouter.delete('/delete/:id', deleteNote);
 
 export default notesRouter;

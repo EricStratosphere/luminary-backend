@@ -12,6 +12,27 @@ export const getAuthors = async(req, res) => {
     }
 }
 
+export const getAuthorById = async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id);
+        if (!author) {
+            return res.status(404).json({
+                success: false,
+                message: "Author not found!"
+            });
+        }
+        res.status(200).json({
+            success: true,
+            data: author
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 export const postAuthor = async(req, res) => {
     try{
         const author = await Author.create(
@@ -29,14 +50,45 @@ export const postAuthor = async(req, res) => {
         res.status(500).json(
             {
                 success : false,
-                message : "Failed to create author!"
+                message : error.message || "Failed to create author!"
             }
         )
     }
 }
 
+export const getAuthorByName = async(req, res) => {
+    try{
+        const search = req.query.q;
+        if (!search || !search.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: "Search text is required"
+            });
+        }
+        const searchRegex = new RegExp(search);
+        var result = await Author.find({'name' : { "$regex" : searchRegex, "$options" : 'i'}});
+        if(!result){
+            const error = new Error("Failed to fetch Author by name!");
+            throw error;
+        }
+        return res.status(200).json(
+            {
+                success : true,
+                data : result,
+            }
+        )
+    }
+    catch(error){
+        return res.status(404).json(
+            {
+                success : false,
+                errorMsg : error.message
+            }
+        )
+    }
+}
 
-export const updateAuthor = async(req, res, next) => {
+export const updateAuthor = async(req, res) => {
     try{
         const author = await Author.findById(req.params.id);
         if(!author){

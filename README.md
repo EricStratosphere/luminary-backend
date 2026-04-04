@@ -29,7 +29,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       {
         "_id": "authorObjectId",
         "name": "Author Name",
-        "author_img_url" : "https://someauthorimglink.com"
+        "author_img_url" : "https://someauthorimglink.com",
         "author_description": "Short bio or description",
         "createdAt": "2026-03-30T12:00:00.000Z",
         "updatedAt": "2026-03-30T12:00:00.000Z"
@@ -39,7 +39,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/authors/:id
+### GET /api/v1/authors/getbyid/:id
 - Description: Retrieve a specific author by `id`.
 - Response:
   ```json
@@ -48,12 +48,32 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "authorObjectId",
       "name": "Author Name",
-      "author_img_url" : "https://someauthorimglink.com"
+      "author_img_url" : "https://someauthorimglink.com",
       "author_description": "Short bio or description",
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
     "message": "Fetched author by id!"
+  }
+  ```
+
+### GET /api/v1/authors/getbyname?q=<value>
+- Description: Search for authors by partial name (case-insensitive).
+- Example URL: `/api/v1/authors/getbyname?q=John`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "authorObjectId",
+        "name": "John Doe",
+        "author_img_url" : "https://someauthorimglink.com",
+        "author_description": "Short bio or description",
+        "createdAt": "2026-03-30T12:00:00.000Z",
+        "updatedAt": "2026-03-30T12:00:00.000Z"
+      }
+    ]
   }
   ```
 
@@ -82,7 +102,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/authors/:id
+### PUT /api/v1/authors/update/:id
 - Description: Update an existing author by `id`.
 - Body: same as POST.
 - Response:
@@ -101,7 +121,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### DELETE /api/v1/authors/:id
+### DELETE /api/v1/authors/delete/:id
 - Description: Delete an author by `id`.
 - Response:
   ```json
@@ -137,7 +157,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/books/:id
+### GET /api/v1/books/getbyid/:id
 - Description: Retrieve a specific book by `id`.
 - Response:
   ```json
@@ -154,6 +174,49 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "pdf_url": "https://example.com/book.pdf"
     },
     "message": "Fetched book by id!"
+  }
+  ```
+
+### GET /api/v1/books/getbyauthor/:id
+- Description: Retrieve all books by a given author ID.
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "bookObjectId",
+        "book_title": "Title",
+        "book_author_id": ["authorObjectId"],
+        "date_published": "2025-01-01T00:00:00.000Z",
+        "genre": ["Fiction"],
+        "description": "Book description",
+        "image_url": "https://example.com/image.jpg",
+        "pdf_url": "https://example.com/book.pdf"
+      }
+    ]
+  }
+  ```
+
+### GET /api/v1/books/getbyname?q=<value>
+- Description: Search for books by partial title (case-insensitive).
+- Example URL: `/api/v1/books/getbyname?q=History`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "bookObjectId",
+        "book_title": "History of Everything",
+        "book_author_id": ["authorObjectId"],
+        "date_published": "2025-01-01T00:00:00.000Z",
+        "genre": ["Fiction"],
+        "description": "Book description",
+        "image_url": "https://example.com/image.jpg",
+        "pdf_url": "https://example.com/book.pdf"
+      }
+    ]
   }
   ```
 
@@ -189,7 +252,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/books/:id
+### PUT /api/v1/books/update/:id
 - Description: Update an existing book by `id`.
 - Body: same as POST.
 - Response:
@@ -210,7 +273,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### DELETE /api/v1/books/:id
+### DELETE /api/v1/books/delete/:id
 - Description: Delete a book by `id`.
 - Response:
   ```json
@@ -224,20 +287,18 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
 
 ## Bookmarks
 
-### GET /api/v1/bookmarks
-- Description: List all bookmarks saved by users.
+### GET /api/v1/bookmarks/book/:book_id/user/:user_id
+- Description: Retrieve a bookmark for a specific book and user.
 - Response:
   ```json
   {
     "success": true,
-    "data": [
-      {
-        "_id": "bookmarkObjectId",
-        "book_id": "bookObjectId",
-        "user_id": "userObjectId"
-      }
-    ],
-    "message": "Fetched all bookmarks!"
+    "data": {
+      "_id": "bookmarkObjectId",
+      "book_id": "bookObjectId",
+      "user_id": "userObjectId",
+      "page": 123
+    }
   }
   ```
 
@@ -250,7 +311,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Fetched bookmark by id!"
   }
@@ -262,7 +324,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   ```json
   {
     "user_id": "userObjectId",
-    "book_id": "bookObjectId"
+    "book_id": "bookObjectId",
+    "page": 123
   }
   ```
 - Response:
@@ -272,7 +335,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Created new bookmark!"
   }
@@ -288,7 +352,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": {
       "_id": "bookmarkObjectId",
       "book_id": "bookObjectId",
-      "user_id": "userObjectId"
+      "user_id": "userObjectId",
+      "page": 123
     },
     "message": "Updated bookmark!"
   }
@@ -308,8 +373,8 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
 
 ## Collections
 
-### GET /api/v1/collections
-- Description: List all playlists (collections) created by users.
+### GET /api/v1/collections/user/:user_id
+- Description: Retrieve all collections for a specific user.
 - Response:
   ```json
   {
@@ -320,12 +385,11 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
         "name": "Collection Name",
         "user_id": "userObjectId"
       }
-    ],
-    "message": "Fetched all collections!"
+    ]
   }
   ```
 
-### GET /api/v1/collections/:id
+### GET /api/v1/collections/getbyid/:id
 - Description: Retrieve a specific playlist by `id`.
 - Response:
   ```json
@@ -337,6 +401,23 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "user_id": "userObjectId"
     },
     "message": "Fetched collection by id!"
+  }
+  ```
+
+### GET /api/v1/collections/getbyname?q=<value>
+- Description: Search collections by partial name (case-insensitive).
+- Example URL: `/api/v1/collections/getbyname?q=favorites`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "collectionObjectId",
+        "name": "Favorites",
+        "user_id": "userObjectId"
+      }
+    ]
   }
   ```
 
@@ -362,7 +443,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/collections/:id
+### PUT /api/v1/collections/update/:id
 - Description: Update an existing playlist by `id`.
 - Body: same as POST.
 - Response:
@@ -378,7 +459,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### DELETE /api/v1/collections/:id
+### DELETE /api/v1/collections/delete/:id
 - Description: Delete a playlist by `id`.
 - Response:
   ```json
@@ -467,10 +548,119 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
 ### DELETE /api/v1/collection-books/:id
 - Description: Remove a book from a playlist by `id`.
 - Response:
+---
+
+## Collection EBooks
+
+- Note: The collection-ebook relationship stores `collection_id` and `book_id` so the app can fetch all ebooks in a collection by matching a collection id.
+
+### GET /api/v1/collection-ebooks
+- Description: List all ebook-to-collection links in the collection-ebook join table.
+- Response:
   ```json
   {
     "success": true,
-    "message": "Deleted collection book!"
+    "data": [
+      {
+        "_id": "collectionEBookObjectId",
+        "collection_id": {
+          "_id": "collectionObjectId",
+          "name": "Collection Name",
+          "user_id": "userObjectId"
+        },
+        "book_id": {
+          "_id": "bookObjectId",
+          "book_title": "Title",
+          "book_author_id": ["authorObjectId"],
+          "date_published": "2025-01-01T00:00:00.000Z",
+          "genre": ["Fiction"],
+          "description": "Book description",
+          "image_url": "https://example.com/image.jpg",
+          "pdf_url": "https://example.com/book.pdf"
+        }
+      }
+    ]
+  }
+  ```
+
+### GET /api/v1/collection-ebooks/getbycollectionid/:collectionId
+- Description: Retrieve all ebooks in a specific collection by `collectionId`.
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "collectionEBookObjectId",
+        "collection_id": {
+          "_id": "collectionObjectId",
+          "name": "Collection Name",
+          "user_id": "userObjectId"
+        },
+        "book_id": {
+          "_id": "bookObjectId",
+          "book_title": "Title",
+          "book_author_id": ["authorObjectId"],
+          "date_published": "2025-01-01T00:00:00.000Z",
+          "genre": ["Fiction"],
+          "description": "Book description",
+          "image_url": "https://example.com/image.jpg",
+          "pdf_url": "https://example.com/book.pdf"
+        }
+      }
+    ]
+  }
+  ```
+
+### POST /api/v1/collection-ebooks
+- Description: Link an ebook to a collection by creating a collection-ebook entry.
+- Body:
+  ```json
+  {
+    "collection_id": "collectionObjectId",
+    "book_id": "bookObjectId"
+  }
+  ```
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "_id": "collectionEBookObjectId",
+      "collection_id": "collectionObjectId",
+      "book_id": "bookObjectId"
+    },
+    "message": "Created new collection ebook!"
+  }
+  ```
+
+### PUT /api/v1/collection-ebooks/update/:id
+- Description: Update an ebook-to-collection link by `id`.
+- Body: same as POST.
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": {
+      "_id": "collectionEBookObjectId",
+      "collection_id": "collectionObjectId",
+      "book_id": "bookObjectId"
+    },
+    "message": "Collection ebook successfully updated"
+  }
+  ```
+
+### DELETE /api/v1/collection-ebooks/delete/:id
+- Description: Remove an ebook from a collection by `id`.
+- Response:
+  ```json
+  {
+    "success": true,
+    "deletedData": {
+      "_id": "collectionEBookObjectId",
+      "collection_id": "collectionObjectId",
+      "book_id": "bookObjectId"
+    }
   }
   ```
 
@@ -487,7 +677,11 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
     "data": [
       {
         "_id": "commentObjectId",
-        "user_id": "userObjectId",
+        "user_id": {
+          "_id": "userObjectId",
+          "username": "username",
+          "email": "user@example.com"
+        },
         "book_id": "bookObjectId",
         "like_count": 0,
         "rating": 4.5,
@@ -496,29 +690,33 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
         "createdAt": "2026-03-30T12:00:00.000Z",
         "updatedAt": "2026-03-30T12:00:00.000Z"
       }
-    ],
-    "message": "Fetched all comments!"
+    ]
   }
   ```
 
-### GET /api/v1/comments/:id
-- Description: Retrieve a specific comment by `id`.
+### GET /api/v1/comments/book/:bookId
+- Description: Retrieve all comments for a specific book by `bookId`.
 - Response:
   ```json
   {
     "success": true,
-    "data": {
-      "_id": "commentObjectId",
-      "user_id": "userObjectId",
-      "book_id": "bookObjectId",
-      "like_count": 0,
-      "rating": 4.5,
-      "content": "This is a comment.",
-      "replying_to": null,
-      "createdAt": "2026-03-30T12:00:00.000Z",
-      "updatedAt": "2026-03-30T12:00:00.000Z"
-    },
-    "message": "Fetched comment by id!"
+    "data": [
+      {
+        "_id": "commentObjectId",
+        "user_id": {
+          "_id": "userObjectId",
+          "username": "username",
+          "email": "user@example.com"
+        },
+        "book_id": "bookObjectId",
+        "like_count": 0,
+        "rating": 4.5,
+        "content": "This is a comment.",
+        "replying_to": null,
+        "createdAt": "2026-03-30T12:00:00.000Z",
+        "updatedAt": "2026-03-30T12:00:00.000Z"
+      }
+    ]
   }
   ```
 
@@ -554,7 +752,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/comments/:id
+### PUT /api/v1/comments/update/:id
 - Description: Update an existing comment by `id`.
 - Body: same as POST.
 - Response:
@@ -572,17 +770,27 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "createdAt": "2026-03-30T12:00:00.000Z",
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
-    "message": "Updated comment!"
+    "message": "Comment successfully updated"
   }
   ```
 
-### DELETE /api/v1/comments/:id
+### DELETE /api/v1/comments/delete/:id
 - Description: Delete a comment by `id`.
 - Response:
   ```json
   {
     "success": true,
-    "message": "Deleted comment!"
+    "deletedData": {
+      "_id": "commentObjectId",
+      "user_id": "userObjectId",
+      "book_id": "bookObjectId",
+      "like_count": 0,
+      "rating": 4.5,
+      "content": "This is a comment.",
+      "replying_to": null,
+      "createdAt": "2026-03-30T12:00:00.000Z",
+      "updatedAt": "2026-03-30T12:00:00.000Z"
+    }
   }
   ```
 
@@ -604,12 +812,11 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
         "noteContent": "string",
         "page": 12
       }
-    ],
-    "message": "Fetched all notes!"
+    ]
   }
   ```
 
-### GET /api/v1/notes/:id
+### GET /api/v1/notes/getbyid/:id
 - Description: Retrieve a specific note by `id`.
 - Response:
   ```json
@@ -621,8 +828,25 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "user_id": "userObjectId",
       "noteContent": "string",
       "page": 12
-    },
-    "message": "Fetched note by id!"
+    }
+  }
+  ```
+
+### GET /api/v1/notes/book/:bookId/user/:userId
+- Description: Retrieve all notes for a specific book and user.
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "noteObjectId",
+        "book_id": "bookObjectId",
+        "user_id": "userObjectId",
+        "noteContent": "string",
+        "page": 12
+      }
+    ]
   }
   ```
 
@@ -652,7 +876,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/notes/:id
+### PUT /api/v1/notes/update/:id
 - Description: Update an existing note by `id`.
 - Body: same as POST.
 - Response:
@@ -666,17 +890,23 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "noteContent": "string",
       "page": 12
     },
-    "message": "Updated note!"
+    "message": "Note successfully updated"
   }
   ```
 
-### DELETE /api/v1/notes/:id
+### DELETE /api/v1/notes/delete/:id
 - Description: Delete a note by `id`.
 - Response:
   ```json
   {
     "success": true,
-    "message": "Deleted note!"
+    "deletedData": {
+      "_id": "noteObjectId",
+      "book_id": "bookObjectId",
+      "user_id": "userObjectId",
+      "noteContent": "string",
+      "page": 12
+    }
   }
   ```
 
@@ -705,7 +935,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### GET /api/v1/users/:id
+### GET /api/v1/users/getbyid/:id
 - Description: Retrieve a specific user by `id`.
 - Response:
   ```json
@@ -721,6 +951,27 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
       "updatedAt": "2026-03-30T12:00:00.000Z"
     },
     "message": "Fetched user by id!"
+  }
+  ```
+
+### GET /api/v1/users/getbyname?q=<value>
+- Description: Search for users by partial username (case-insensitive).
+- Example URL: `/api/v1/users/getbyname?q=alice`
+- Response:
+  ```json
+  {
+    "success": true,
+    "data": [
+      {
+        "_id": "userObjectId",
+        "username": "alice",
+        "email": "alice@example.com",
+        "is_admin": false,
+        "is_writer": false,
+        "createdAt": "2026-03-30T12:00:00.000Z",
+        "updatedAt": "2026-03-30T12:00:00.000Z"
+      }
+    ]
   }
   ```
 
@@ -753,7 +1004,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### PUT /api/v1/users/:id
+### PUT /api/v1/users/update/:id
 - Description: Update a user account by `id`.
 - Body: same as POST.
 - Response:
@@ -773,7 +1024,7 @@ Base URL: `https://luminary-backend-chi.vercel.app/api/v1`
   }
   ```
 
-### DELETE /api/v1/users/:id
+### DELETE /api/v1/users/delete/:id
 - Description: Delete a user account by `id`.
 - Response:
   ```json

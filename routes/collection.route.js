@@ -1,45 +1,24 @@
 import { Router } from "express";
+import { getCollectionsByUserId, getCollectionById, getCollectionsByName, postCollection, updateCollection, deleteCollection } from "../controllers/collection.controller.js";
 
 const collectionRouter = Router();
 
-// GET all collections
-collectionRouter.get('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched all collections!"
-    });
-});
+// GET collections by user id
+collectionRouter.get('/user/:user_id', getCollectionsByUserId);
 
 // GET collection by id
-collectionRouter.get('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Fetched collection by id!"
-    });
-});
+collectionRouter.get('/getbyid/:id', getCollectionById);
+
+// GET collections by name
+collectionRouter.get('/getbyname', getCollectionsByName);
 
 // POST create collection
-collectionRouter.post('/', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Created new collection!"
-    });
-});
+collectionRouter.post('/', postCollection);
 
 // PUT update collection by id
-collectionRouter.put('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Updated collection!"
-    });
-});
+collectionRouter.put('/update/:id', updateCollection);
 
 // DELETE collection by id
-collectionRouter.delete('/:id', (req, res, next) => {
-    return res.json({
-        success: true,
-        message: "Deleted collection!"
-    });
-});
+collectionRouter.delete('/delete/:id', deleteCollection);
 
 export default collectionRouter;
