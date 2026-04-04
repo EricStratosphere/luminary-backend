@@ -9,6 +9,7 @@ notesRouter.get('/', getNotes);
 // GET note by id
 notesRouter.get('/getbyid/:id', getNoteById);
 
+
 // GET notes by book id and user id
 notesRouter.get('/book/:bookId/user/:userId', getNotesByBookIdAndUserId);
 

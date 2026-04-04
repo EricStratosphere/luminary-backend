@@ -21,7 +21,7 @@ const collectionSchema = new mongoose.Schema(
         },
         public : {
             type : Boolean,    
-            required : true,        
+            required : true,
             default : true
         }
     }
