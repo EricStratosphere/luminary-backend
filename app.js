@@ -10,6 +10,7 @@ import collectionEBookRouter from './routes/collectionebook.route.js';
 import commentRouter from './routes/comment.route.js';
 import notesRouter from './routes/notes.route.js';
 import userRouter from './routes/user.route.js';
+import authRouter from './routes/authentication.route.js';
 import { PORT } from './config/env.js';
 const app = express();
 
@@ -30,6 +31,7 @@ app.use('/api/v1/collection-ebooks', collectionEBookRouter);
 app.use('/api/v1/comments', commentRouter);
 app.use('/api/v1/notes', notesRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/authenticate', authRouter);
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
@@ -37,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 console.log("luminary backend active! at http://localhost:" + PORT);
-// app.listen(PORT, async () => {
-// });
+app.listen(PORT, async () => {
+});
 
 export default app;
