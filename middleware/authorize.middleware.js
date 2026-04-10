@@ -1,3 +1,5 @@
+import { ACCESS_TOKEN_SECRET } from "../config/env.js";
+import jwt from 'jsonwebtoken';
 function authenticateToken(req, res, next){
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -6,10 +8,19 @@ function authenticateToken(req, res, next){
     if(!token){ 
         return res.status(401).json({
         success : false,
-        message : "Failed to authenticate. Token invalid."
+        message : "Failed to authenticate. Token undefined."
         })
     }
-    next();
+    jwt.verify(token, ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err){
+            return res.status(403).json({
+                success : false,
+                message : "Unauthorized token. Token invalid."
+            })
+        }
+        next();
+    });
+    
 }
 
 
