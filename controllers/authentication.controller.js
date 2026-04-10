@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import User from "../models/user.model.js"
 import bcrypt from "bcryptjs"
 import { encryptAuth } from "../authentication/encrypt.auth.js"
-import { ACCESS_TOKEN_SECRET } from "../config/env.js"
+import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/env.js"
 export const signUp = async (req, res) =>{
     console.log("sign up called!");
     try{
@@ -34,12 +34,14 @@ export const logIn = async (req, res) => {
         }
         const logInSuccessful = await bcrypt.compare(req.body.password, user.password);
         if(logInSuccessful){
-            const accessToken = jwt.sign(user.toJSON(), ACCESS_TOKEN_SECRET);
+            const accessToken = jwt.sign(user.toJSON(), ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
+            const refreshToken = jwt.sign(user.toJSON(), REFRESH_TOKEN_SECRET, {expiresIn : '7d'})
             return res.status(200).json(
                 {
                     success : true,
                     message : "login successful!",
-                    access_token : accessToken
+                    access_token : accessToken,
+                    refresh_token : refreshToken
                 }
             )
         }else{
