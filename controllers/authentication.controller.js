@@ -32,30 +32,54 @@ export const logIn = async (req, res) => {
     try{
         const user = await User.findOne({email : req.body.email});
         if(!user){
-            throw new Error('E-mail does not exist! User not found');
+            throw new Error('Incorrect credentials');
         }
         const logInSuccessful = await bcrypt.compare(req.body.password, user.password);
         if(logInSuccessful){
-            const accessToken = jwt.sign(user.toJSON(), ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
-            const refreshToken = jwt.sign(user.toJSON(), REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
-            const createdToken = await RefreshToken.create({ 
-                user_id : user._id,
-                refresh_token : refreshToken 
-            })
-            if(createdToken)
-            {
+            delete user.password;
+            const accessToken = jwt.sign(user._id, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
+            const refreshToken = jwt.sign(user._id, REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
+            const refreshTokenExists = await RefreshToken.exists(
+                {
+                    user_id : user._id
+                }
+            );
+            if(refreshTokenExists){
+                const updatedToken = await RefreshToken.findOne({user_id : user._id});
+                updatedToken.refresh_token = refreshToken;
+                await updatedToken.save();
                 return res.status(200).json(
+                        {
+                            success : true,
+                            message : "login successful! new access token generated",
+                            access_token : accessToken,
+                            refresh_token_data : updatedToken,
+                            user : user
+                        }
+                    )
+            }
+            else{
+                const createdToken = await RefreshToken.create(
                     {
-                        success : true,
-                        message : "login successful!",
-                        access_token : accessToken,
-                        refresh_token : createdToken,
-                        user : user
+                        user_id : user._id,
+                        refresh_token : refreshToken
                     }
-                )
+                );
+                if(createdToken)
+                {
+                    return res.status(200).json(
+                        {
+                            success : true,
+                            message : "login successful!",
+                            access_token : accessToken,
+                            refresh_token_data : createdToken,
+                            user : user
+                        }
+                    )
+                }
             }
         }else{
-            throw new Error('Incorrect password!');
+            throw new Error('Incorrect credentials');
         }
     }
     catch(error){
@@ -69,5 +93,63 @@ export const logIn = async (req, res) => {
 }
 
 export const signOut = async(req, res) => {
+    try{
+        const user_id = req.params.id;
+        const signOut = await RefreshToken.delete({user_id : user_id});
+        if(!signOut){
+            throw new Error("Failed to sign out!");
+        }
+        return res.status(200).json(
+            {
+                success : true,
+                message : "User logged out successfully."
+            }
+        )
 
+    }
+    catch(error){
+        return res.status(500).json(
+            {
+                success : false,
+                message : "Failed to log out user."
+            }
+        )
+    }
+}
+
+export const refresh = async(req, res) => {
+    try{
+        const user_id = req.params.id;
+        const refreshTokenData = await RefreshToken.findOne({user_id : user_id});
+        if(!refreshTokenData){
+            throw new Error("Refresh token not found.");
+        }
+        const refreshToken = refreshTokenData.refresh_token;
+        jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (err, userId) => {
+            if(err){
+                return res.status(401).json(
+                    {
+                        success : false,
+                        message : "Failed to refresh access token."
+                    }
+                )
+            }
+            const accessToken = jwt.sign(user_id, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
+            return res.status(200).json(
+                {
+                    success : true,
+                    message : "New Access Token Generated",
+                    access_token : accessToken
+                }
+            )
+        })
+    }
+    catch(error){
+        return res.status(500).json(
+            {
+                success : false,
+                message : error.message
+            }
+        )
+    }
 }
