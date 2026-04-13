@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { getUsers, getUser, getUsersByName, createUser, updateUser, deleteUser } from "../controllers/user.controller.js";
-import { authenticateToken } from "../middleware/authorize.middleware.js";
+import authenticateToken from "../middleware/authorize.middleware.js";
 const userRouter = Router();
 
 // GET all users

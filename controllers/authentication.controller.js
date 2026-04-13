@@ -37,8 +37,8 @@ export const logIn = async (req, res) => {
         const logInSuccessful = await bcrypt.compare(req.body.password, user.password);
         if(logInSuccessful){
             delete user.password;
-            const accessToken = jwt.sign(user._id, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
-            const refreshToken = jwt.sign(user._id, REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
+            const accessToken = jwt.sign({user_id : user._id}, ACCESS_TOKEN_SECRET, {expiresIn : '20s'});
+            const refreshToken = jwt.sign({user_id : user._id}, REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
             const refreshTokenExists = await RefreshToken.exists(
                 {
                     user_id : user._id
@@ -105,7 +105,6 @@ export const signOut = async(req, res) => {
                 message : "User logged out successfully."
             }
         )
-
     }
     catch(error){
         return res.status(500).json(
@@ -134,7 +133,7 @@ export const refresh = async(req, res) => {
                     }
                 )
             }
-            const accessToken = jwt.sign(user_id, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
+            const accessToken = jwt.sign({user_id : user_id}, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
             return res.status(200).json(
                 {
                     success : true,

@@ -14,7 +14,7 @@ const authenticateToken = async (req, res, next) => {
         message : "Failed to authenticate. Token undefined."
         })
     }
-    jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, userId) => {
+    jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, user) => {
         if(err){
             return res.status(401).json({
                 success : false,
@@ -22,9 +22,8 @@ const authenticateToken = async (req, res, next) => {
             })
         }
         next();
-    });z
+    });
     
 }
 
-
-export default authenticateToken
+export default authenticateToken;
