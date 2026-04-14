@@ -9,6 +9,6 @@ authRouter.post('/signout', signOut);
 
 authRouter.post('/signup', signUp);
 
-authRouter.post('/refresh/:id', refresh);
+authRouter.post('/refresh/', refresh);
 
 export default authRouter;

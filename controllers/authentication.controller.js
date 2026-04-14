@@ -37,8 +37,8 @@ export const logIn = async (req, res) => {
         const logInSuccessful = await bcrypt.compare(req.body.password, user.password);
         if(logInSuccessful){
             delete user.password;
-            const accessToken = jwt.sign({user_id : user._id}, ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
-            const refreshToken = jwt.sign({user_id : user._id}, REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
+            const accessToken = jwt.sign(user.toJSON(), ACCESS_TOKEN_SECRET, {expiresIn : '3600s'});
+            const refreshToken = jwt.sign(user.toJSON(), REFRESH_TOKEN_SECRET, {expiresIn : '7d'});
             const refreshTokenExists = await RefreshToken.exists(
                 {
                     user_id : user._id
@@ -118,7 +118,7 @@ export const signOut = async(req, res) => {
 
 export const refresh = async(req, res) => {
     try{
-        const user_id = req.params.id;
+        const user_id = req.body.id;
         const refreshTokenData = await RefreshToken.findOne({user_id : user_id});
         if(!refreshTokenData){
             throw new Error("Refresh token not found.");

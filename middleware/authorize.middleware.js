@@ -14,13 +14,14 @@ const authenticateToken = async (req, res, next) => {
         message : "Failed to authenticate. Token undefined."
         })
     }
-    jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, user) => {
+    jwt.verify(token, ACCESS_TOKEN_SECRET, async (err, decoded) => {
         if(err){
             return res.status(401).json({
                 success : false,
                 message : "Unauthorized token. Token invalid."
             })
         }
+        req.user = decoded;
         next();
     });   
 }
