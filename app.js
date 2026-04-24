@@ -12,7 +12,33 @@ import notesRouter from './routes/notes.route.js';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/authentication.route.js';
 import { PORT } from './config/env.js';
+import passport from "passport";
+import { Strategy } from "passport-google-oauth20";
+import { CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "./env.js";
+
 const app = express();
+
+
+passport.use(new Strategy(
+    {
+        clientID : CLIENT_ID,
+        clientSecret : CLIENT_SECRET,
+        callbackURL : REDIRECT_URI,
+        passReqToCallback : true
+    },
+    function(request, acceessToken, refreshToken, profile, done){
+        User.findOrCreate({})
+    }
+));
+
+passport.serializeUser(function(user, done){
+    done(null, user);
+});
+
+passport.deserializeUser(function(user, done){
+    done(null, user)
+})
+
 
 app.use(cors({
     origin : true
@@ -35,7 +61,8 @@ app.use('/api/v1/authenticate', authRouter);
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-    return res.send("luminary backend active!");
+    const userIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    return res.status(200).send(`luminary backend active! ${userIP}`);
 });
 
 console.log("luminary backend active! at http://localhost:" + PORT);
