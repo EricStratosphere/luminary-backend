@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
 
-const requestModel = new Schema(
+const responseModel = new Schema(
     {
         book_id : {
             type : mongoose.Schema.Types.ObjectId,
@@ -12,13 +12,13 @@ const requestModel = new Schema(
             ref : 'User',
             required : true,
         },
-        request : {
+        response : {
             type : String,
             required : true
         }
     }, {timestamps : true}
 )
 
-const Request = model('Request', requestModel);
+const Request = model('Response', responseModel);
 
-export default Request;
+export default Response;
