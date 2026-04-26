@@ -3,12 +3,12 @@ import {Schema, model} from 'mongoose';
 const responseModel = new Schema(
     {
         book_id : {
-            type : mongoose.Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref : 'Book',
             required : true,
         },
         user_id : {
-            type : mongoose.Schema.Types.ObjectId,
+            type : Schema.Types.ObjectId,
             ref : 'User',
             required : true,
         },
@@ -19,6 +19,6 @@ const responseModel = new Schema(
     }, {timestamps : true}
 )
 
-const Request = model('Response', responseModel);
+const Response = model('Response', responseModel);
 
 export default Response;

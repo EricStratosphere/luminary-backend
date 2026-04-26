@@ -47,9 +47,30 @@ export const promptText = async (req, res) => {
 
 export const getConversation = async (req, res) => {
     try{
-        
+        const { book_id, user_id } = req.params;
+
+        // Fetch requests and responses by book_id and user_id
+        const requests = await Request.find({ book_id, user_id });
+        const responses = await Response.find({ book_id, user_id });
+
+        // Sort both arrays by createdAt in chronological order
+        requests.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+        responses.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+        // Concatenate both arrays and sort again
+        const conversation = [...requests, ...responses].sort((a, b) =>
+            new Date(a.createdAt) - new Date(b.createdAt)
+        );
+
+        return res.status(200).json({
+            success: true,
+            conversation
+        });
     }
     catch(error){
-
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
 }

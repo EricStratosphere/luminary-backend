@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { promptText } from "../controllers/gemini.controller.js";
+import { promptText, getConversation } from "../controllers/gemini.controller.js";
 const geminiAPIRouter = Router();
 
 geminiAPIRouter.post('/prompt-text', promptText);
+geminiAPIRouter.get('/conversation/:book_id/:user_id', getConversation);
 
 export default geminiAPIRouter;
