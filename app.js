@@ -11,6 +11,7 @@ import commentRouter from './routes/comment.route.js';
 import notesRouter from './routes/notes.route.js';
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/authentication.route.js';
+import geminiAPIRouter from './routes/gemini-api.route.js';
 import { PORT } from './config/env.js';
 import passport from "passport";
 import { Strategy } from "passport-google-oauth20";
@@ -58,6 +59,7 @@ app.use('/api/v1/comments', commentRouter);
 app.use('/api/v1/notes', notesRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/authenticate', authRouter);
+app.use('/api/v1/gemini-chatbot', geminiAPIRouter);
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
