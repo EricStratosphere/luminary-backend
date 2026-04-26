@@ -15,6 +15,10 @@ const requestModel = new Schema(
         request : {
             type : String,
             required : true
+        },
+        image_url : {
+            type : String,
+            required : false
         }
     }, {timestamps : true}
 )
