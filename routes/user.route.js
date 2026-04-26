@@ -4,7 +4,7 @@ import authenticateToken from "../middleware/authorize.middleware.js";
 const userRouter = Router();
 
 // GET all users
-userRouter.get('/', getUsers);
+userRouter.get('/', authenticateToken, getUsers);
 
 // GET user by id
 userRouter.get('/getbyid/:id', getUser);

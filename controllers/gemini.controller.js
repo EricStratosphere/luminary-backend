@@ -6,15 +6,32 @@ export const promptText = async (req, res) => {
     const session = await mongoose.startSession();
     try{
         await session.withTransaction(async() => {
-            const request = await Request.create({
-            book_id : req.body.book_id,
-            user_id : req.body.user_id,
-            request : req.body.prompt
-            });
+            if(req.body.image_url){
+                var request = await Request.create({
+                book_id : req.body.book_id,
+                user_id : req.body.user_id,
+                request : req.body.prompt,
+                image_url : req.body.image_url
+                });
+            }
+            else{
+                var request = await Request.create({
+                book_id : req.body.book_id,
+                user_id : req.body.user_id,
+                request : req.body.prompt
+                });
+            }
             if(!request){
                 throw new Error("Failed to process request!");
             }
-            const result = await prompt(req.body.prompt);
+            var result;
+            if(req.body.image_url){
+                console.log("req.body.image_url exists!");
+                result = await prompt(req.body.prompt, req.body.image_url);
+            }
+            else{
+                result = await prompt(req.body.prompt);
+            }
             if(typeof result === 'string' && result.trim().length === 0){
                 throw new Error("No API response generated!");
             }
