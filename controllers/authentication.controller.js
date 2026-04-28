@@ -79,7 +79,7 @@ export const logIn = async (req, res) => {
                 }
             }
         }else{
-            throw new Error('Incorrect credentials');
+            throw new Error('Incorrect password!');
         }
     }
     catch(error){
