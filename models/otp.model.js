@@ -5,7 +5,6 @@ const otpSchema = new mongoose.Schema(
         user_id : {
             type : mongoose.Schema.Types.ObjectId,
             ref : 'User',
-            required : true,
             index : true
         },
         otp : {
@@ -16,8 +15,8 @@ const otpSchema = new mongoose.Schema(
         },        
         expiresAt : {
             type : Date,
-            default : Date.now(),
-            expires : 60*5,
+            default : Date.now() + 5 * 6000,
+            expires : 5,
             required : true
         }
     }
