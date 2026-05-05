@@ -159,7 +159,7 @@ export const refresh = async(req, res) => {
 export const getOTP = async(req, res) => {
     try{
         const OTPObject = generateOTP();
-        const user = await User.findOne({email : req.body.email});
+        const user = await User.findOne({email : req.body.email}, '-password');
         if(!user){
             throw new Error("Username not found!");
         }

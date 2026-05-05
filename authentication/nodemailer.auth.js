@@ -1,6 +1,5 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(
     {
@@ -24,7 +23,7 @@ const getMailOptions = (target, subjectContent, textContent) => {
 }
 
 const generateOTP = () => {
-    return Math.floor(100000 + Math.random() * 900000)
+    return Math.floor(100000 + Math.random() * 900000);
 }
 
 export {transporter, getMailOptions, generateOTP};
