@@ -156,6 +156,8 @@ export const refresh = async(req, res) => {
     }
 };
 
+
+
 export const getOTP = async(req, res) => {
     try{
         const OTPObject = generateOTP();
@@ -185,6 +187,7 @@ export const getOTP = async(req, res) => {
                     return res.status(200).json(
                     {   
                         success : true,
+                        email_info : info,
                         user_id : user._id,
                         otpData : otpData
                     }
@@ -207,12 +210,12 @@ export const getOTP = async(req, res) => {
 
 export const verifyOTP = async (req, res) => {
     try{
-        const otpData = await OTP.findOne({user_id : req.body.user_id});
+        const otpData = await OTP.findOne({otp : req.body.otp});
         if(!otpData){
             throw new Error("No OTP Found!");
         }
         const otp = req.body.otp;
-        if(otp === otpData.otp){
+        if(otpData){
             return res.status(200).json({
                 success : true,
                 data : otpData
