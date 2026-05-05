@@ -62,15 +62,47 @@ Use the deployed host or local host where the app is running.
     "password": "string"
   }
   ```
-- Response: typically includes auth token and user details.
+- Response: typically includes auth tokens and user details.
 
 ### POST /api/v1/authenticate/refresh
 - Description: Refresh authentication tokens.
-- Body: depends on client implementation (refresh token).
+- Body:
+  ```json
+  {
+    "id": "userObjectId"
+  }
+  ```
+- Response: returns a new access token.
 
 ### POST /api/v1/authenticate/signout
 - Description: Sign out the current user.
 - Body: typically includes token or session data.
+- Response: success message on logout.
+
+### POST /api/v1/authenticate/get-otp
+- Description: Generate and send a one-time password (OTP) to the user's email.
+- Body:
+  ```json
+  {
+    "email": "user@example.com"
+  }
+  ```
+- Response: includes OTP record info and email delivery details.
+
+### POST /api/v1/authenticate/verify-otp
+- Description: Verify a one-time password for user authentication.
+- Body:
+  ```json
+  {
+    "otp": 123456
+  }
+  ```
+- Response: returns the OTP record when verification succeeds.
+
+#### OTP Model Notes
+- `user_id`: reference to the User who requested the OTP.
+- `otp`: six-digit numeric code.
+- `expiresAt`: expiration timestamp, configured to expire after a short time window.
 
 ---
 
