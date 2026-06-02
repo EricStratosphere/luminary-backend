@@ -16,4 +16,6 @@ authRouter.post('/get-otp', getOTP);
 
 authRouter.post('/verify-otp', verifyOTP);
 
+authRouter.post('/get-otp-signup', getOTPSignUp);
+
 export default authRouter;

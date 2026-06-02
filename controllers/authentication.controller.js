@@ -197,6 +197,9 @@ export const getOTP = async(req, res) => {
             })
             
         }
+        else{
+            throw new Error("Failed to save OTP!");
+        }
     }
     catch(error){
         return res.status(500).json(
@@ -208,6 +211,51 @@ export const getOTP = async(req, res) => {
     }
 }
 
+
+export const getOTPSignUp = async(req, res) => {
+    try{
+        const OTPObject = generateOTP();
+        const email = req.body.email;
+        const otpData = await OTP.create(
+            {
+                otp : OTPObject
+            }
+        )
+        if(otpData){
+            const textContent = `Hello!\n Your OTP is ${OTPObject}.\nPlease input to complete authorization.\nThank you for using Luminary!`
+            const mailOptions = getMailOptions(
+                req.body.email,
+                "OTP-Verification",
+                textContent
+            )
+            transporter.sendMail(mailOptions, (err, info) => {
+                if(err){
+                    throw err;
+                }else{
+                    return res.status(200).json(
+                    {   
+                        success : true,
+                        email_info : info,
+                        user_id : user._id,
+                        otpData : otpData
+                    }
+                )        
+                }
+            })
+        }
+        else{
+            throw new Error("Failed to save OTP!");
+        }
+    }
+    catch(error){
+        return res.status(500).json(
+            {
+                success : false,
+                message : error.message
+            }
+        )
+    }
+}
 
 export const verifyOTP = async (req, res) => {
     try{
