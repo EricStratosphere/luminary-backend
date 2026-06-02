@@ -89,6 +89,16 @@ Use the deployed host or local host where the app is running.
   ```
 - Response: includes OTP record info and email delivery details.
 
+### POST /api/v1/authenticate/get-otp-signup
+- Description: Generate and send a one-time password (OTP) to an email during signup process (for users without an existing account).
+- Body:
+  ```json
+  {
+    "email": "user@example.com"
+  }
+  ```
+- Response: includes OTP record info and email delivery details.
+
 ### POST /api/v1/authenticate/verify-otp
 - Description: Verify a one-time password for user authentication.
 - Body:
