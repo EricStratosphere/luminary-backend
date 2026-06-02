@@ -7,6 +7,7 @@ import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../config/env.js"
 import RefreshToken from "../models/refresh.model.js"
 import { generateOTP, transporter, getMailOptions } from "../authentication/nodemailer.auth.js"
 import OTP from "../models/otp.model.js"
+
 export const signUp = async (req, res) =>{
     console.log("sign up called!");
     try{
