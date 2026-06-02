@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logIn, signOut, signUp, refresh, getOTP, verifyOTP } from "../controllers/authentication.controller.js";
+import { logIn, signOut, signUp, refresh, getOTP, verifyOTP, getOTPSignUp } from "../controllers/authentication.controller.js";
 
 const authRouter = Router();
 
