@@ -215,7 +215,6 @@ export const getOTP = async(req, res) => {
 export const getOTPSignUp = async(req, res) => {
     try{
         const OTPObject = generateOTP();
-        const email = req.body.email;
         const otpData = await OTP.create(
             {
                 otp : OTPObject
@@ -236,7 +235,6 @@ export const getOTPSignUp = async(req, res) => {
                     {   
                         success : true,
                         email_info : info,
-                        user_id : user._id,
                         otpData : otpData
                     }
                 )        
