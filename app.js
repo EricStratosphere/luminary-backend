@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 });
 
 console.log("luminary backend active! at http://localhost:" + PORT);
-app.listen(PORT, async () => {
-});
+// app.listen(PORT, async () => {
+// });
 
 export default app;
