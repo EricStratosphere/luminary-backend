@@ -1,12 +1,14 @@
 import { createRequire } from 'module';
+import { GMAIL_ACCOUNT, GMAIL_APP_PASSWORD } from '../config/env.js';
+//console.log(GMAIL_ACCOUNT, GMAIL_APP_PASSWORD);
 const require = createRequire(import.meta.url);
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(
     {
         service : "gmail",
         auth : {
-            user : "luminaryknowledgehub@gmail.com",
-            pass : "kqdf twyb rxbn satz"
+            user : GMAIL_ACCOUNT,
+            pass : GMAIL_APP_PASSWORD
         }
     }
 );
